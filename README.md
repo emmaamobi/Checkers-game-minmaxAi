@@ -1,0 +1,2 @@
+# Checkers game, with minmaxAi
+
