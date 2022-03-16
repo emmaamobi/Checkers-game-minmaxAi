@@ -22,7 +22,4 @@ class Board:
 
 
 
-a = Board()
-for row in a.board:
-    print(row)
 
