@@ -1,6 +1,6 @@
 class Board: 
     """
-    Standard Checkers board, 8 x 8 grid, black and white squares. 
+    Standard Checkers board, 8 x 8 grid, red vs white pieces. 
     """
 
     def __init__(self):
@@ -19,7 +19,8 @@ class Board:
                 if col == self.cols-1:
                     continue
                 square = 0 if square == 1 else 1
-
+    def get_board(self):
+        return self.board
 
 
 
