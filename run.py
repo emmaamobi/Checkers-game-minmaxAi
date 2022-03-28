@@ -1,14 +1,16 @@
 import pygame
+from board import Board
+from ui_consts import W, H
 
 # UI variables 
 w,h = 720, 720
-each_square = w / 8 # divide width by number of rows or cols
+each_square = w / 8 # divide width by number of rows or cols to get square size
 red = (255, 0, 0)
 white = (255, 255, 255)
 black = (0, 0, 0)
 
 # initialize window
-WIN = pygame.display.set_mode((w,h))
+WIN = pygame.display.set_mode((W,H))
 pygame.display.set_caption('checkers minmax')
 
 
@@ -17,6 +19,8 @@ pygame.display.set_caption('checkers minmax')
 def main():
     running = True
     clock = pygame.time.Clock()
+    board = Board()
+
     while running:
         clock.tick(60) # constant framerate 
 
@@ -26,6 +30,8 @@ def main():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pass
+        board.draw_board(WIN)
+        pygame.display.update()
 
     pygame.quit() # close window
 
