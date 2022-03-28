@@ -16,20 +16,29 @@ class Board:
         
 
     def initializeBoard(self):
-        square = 1 # white
+        # TODO: replace with actual pieces object
+        white_piece, red_piece = 1, 2
 
         for row in range(self.rows):
             self.board.append([])
             for col in range(self.cols):
-                self.board[row].append(square)
-                if col == self.cols-1:
-                    continue
-                square = 0 if square == 1 else 1
+                if col % 2 == ((row + 1) % 2): # draw only on black squares
+                    if row < 3:# white on first 3 rows
+                        self.board[row].append(white_piece)
+
+                    elif row > 4: #red on bottom 3 rows
+                        self.board[row].append(red_piece)
+
+                    else: # fill empty playable slots with 0
+                        self.board[row].append(0)
+                else:
+                    self.board[row].append(0)
+
+
     def get_board(self):
         return self.board
 
     def draw_board(self,win):
-
         win.fill(BLACK)
         for row in range(self.rows):
             x_cord = row*EACH_SQUARE
@@ -38,6 +47,11 @@ class Board:
                 y_cord = col*EACH_SQUARE
                 mini_square = (x_cord, y_cord, width, height)
                 pygame.draw.rect(win, WHITE, mini_square)
+
+    
+    def draw_pieces(self, win): 
+        # TODO: draw the pieces
+
 
 
 
