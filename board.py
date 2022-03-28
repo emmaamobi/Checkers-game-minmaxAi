@@ -51,6 +51,7 @@ class Board:
     
     def draw_pieces(self, win): 
         # TODO: draw the pieces
+        return 0
 
 
 
