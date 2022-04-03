@@ -1,5 +1,5 @@
 import pygame
-from ui_consts import EACH_SQUARE, W,H,RED,WHITE,BLACK,BLUE
+from ui_consts import EACH_SQUARE, W,H,RED,WHITE,BLACK,BLUE,GOLD
 class Piece: 
     def __init__(self,c, x,y):
         """
@@ -51,4 +51,11 @@ class Piece:
         #outline = 2
         ## pygame.draw.circle(win, BLUE, x_y_cords, radius + outline )
         pygame.draw.circle(win, self.color, x_y_cords, radius)
+
+        ## draw king
+        if self.isKing:
+            radius_smaller = ((EACH_SQUARE // 2) // 2)
+            pygame.draw.circle(win, GOLD, x_y_cords, radius_smaller)
+
+
 
