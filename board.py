@@ -67,20 +67,18 @@ class Board:
     def move_piece(self, piece, row, col):
         self.board[piece.row][piece.col], self.board[row][col] = self.board[row][col], self.board[piece.row][piece.col]
 
-        # update piece pos
-        piece.update_pos(row,col)
-
         # make white king
         if row == self.rows-1 and piece.color == WHITE and piece.isKing == False:
             piece.setKing()
-            piece.update_pos(row,col)
             self.white_kings += 1
 
         # make red king
         if row == 0 and piece.color == RED and piece.isKing == False:
             piece.setKing()
-            piece.update_pos(row,col)
             self.red_kings += 1
+
+        # update piece pos
+        piece.update_pos(row,col)
 
     """
     returns piece at given index
