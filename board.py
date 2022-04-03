@@ -73,9 +73,17 @@ class Board:
         # make white king
         if row == self.rows-1 and piece.color == WHITE and piece.isKing == False:
             piece.setKing()
+            piece.update_pos(row,col)
+            self.white_kings += 1
 
         # make red king
         if row == 0 and piece.color == RED and piece.isKing == False:
             piece.setKing()
+            piece.update_pos(row,col)
+            self.red_kings += 1
 
-
+    """
+    returns piece at given index
+    """
+    def get_piece(self, row, col):
+        return self.board[row][col]
