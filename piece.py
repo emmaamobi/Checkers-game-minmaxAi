@@ -46,8 +46,9 @@ class Piece:
 
     def draw_piece(self,win):
         x_y_cords = (self.x_cord, self.y_cord)
-        pad, outline = 10, 4
+        pad = 10
         radius = (EACH_SQUARE // 2) - pad
-        pygame.draw.circle(win, BLUE, x_y_cords, radiuis + self.outline )
-        pygame.draw.circle(win, self.color, x_y_cords, radiuis)
+        #outline = 2
+        ## pygame.draw.circle(win, BLUE, x_y_cords, radius + outline )
+        pygame.draw.circle(win, self.color, x_y_cords, radius)
 

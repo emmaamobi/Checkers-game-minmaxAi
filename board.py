@@ -27,7 +27,7 @@ class Board:
                         self.board[row].append(white_piece)
 
                     elif row > 4: #red on bottom 3 rows
-                        red_piece = Piece(WHITE,row,col)
+                        red_piece = Piece(RED,row,col)
                         self.board[row].append(red_piece)
 
                     else: # fill empty playable slots with 0
@@ -49,11 +49,16 @@ class Board:
                 mini_square = (x_cord, y_cord, width, height)
                 pygame.draw.rect(win, WHITE, mini_square)
 
+    def draw_pieces(self, win):
+        for row in range (self.rows):
+            for col in range(self.cols):
+                cur_piece = self.board[row][col]
+                if cur_piece != 0:
+                    cur_piece.draw_piece(win)
     
-    def draw_pieces(self, win): 
-        # TODO: draw the pieces
-        return 0
-
+    def draw_game(self,win):
+        self.draw_board(win)
+        self.draw_pieces(win)
 
 
 
