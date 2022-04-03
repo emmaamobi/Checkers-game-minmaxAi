@@ -58,5 +58,8 @@ class Piece:
         self.col = col
         self.set_cord()
 
-
+    def __repr__(self):
+        res = ""
+        res += "{} piece located at {},{}\n".format(self.color,self.row,self.col)
+        return res
 
