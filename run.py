@@ -1,6 +1,7 @@
 import pygame
 from board import Board
 from ui_consts import W, H
+from utils import get_index_from_click
 
 # UI variables 
 w,h = 720, 720
@@ -29,8 +30,13 @@ def main():
                 running = False
 
             if event.type == pygame.MOUSEBUTTONDOWN:
+                click = pygame.mouse.get_pos()
+                row, col = get_index_from_click(click)
+                print("ROW COL: ", row, col)
+                piece = board.get_piece(row,col)
+                print(piece)
                 pass
-        board.draw_board(WIN)
+        board.draw_game(WIN)
         pygame.display.update()
 
     pygame.quit() # close window
