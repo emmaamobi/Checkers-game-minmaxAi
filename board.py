@@ -10,6 +10,10 @@ class Board:
         self.board = []
         self.rows = 8
         self.cols = 8
+        self.white_pieces = 12
+        self.red_pieces = 12
+        self.white_kings = 0
+        self.red_kings = 0
         self.initializeBoard()
 
         # pygame UI variables
