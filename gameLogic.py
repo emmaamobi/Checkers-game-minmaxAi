@@ -7,9 +7,8 @@ class GameLogic:
         self.board = board
         self.rules = Rules()
         self.player_1 ="RED" # referes to pieces
-        self.player_2 ="BLACK"
+        self.player_2 ="WHITE"
         self.currentPlayer=self.player_1
-        self.playing_game()
         #self.gameScore = self.score() 
 
 
@@ -55,12 +54,12 @@ class GameLogic:
             print("Red'pieces turn")
         else:
             self.currentPlayer= self.player_1 
-            print("Black'pieces turn")
+            print("White'pieces turn")
 
 
     def check_for_winner(self):
         if self.board.getRedPieces() == 0 :
-            print("Black pieces player won")
+            print("White pieces player won")
             return False
         elif self.board.getBlackPieces() == 0 :
             print("Red pieces player won")
@@ -72,4 +71,6 @@ class GameLogic:
 
     # def score(self):
     #     self.score = self.player_1.getPieces()-self.player_2.getPieces()+(self.player_1.getNumberKings()*1.5 -self.player_2.getNumberKings()*1.5)
+
+
 
