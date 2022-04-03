@@ -59,7 +59,19 @@ class Board:
     def draw_game(self,win):
         self.draw_board(win)
         self.draw_pieces(win)
+    
+    def move_piece(self, piece, row, col):
+        self.board[piece.row][piece.col], self.board[row][col] = self.board[row][col], self.board[piece.row][piece.col]
 
+        # update piece pos
+        piece.update_pos(row,col)
 
+        # make white king
+        if row == self.rows-1 and piece.color == WHITE and piece.isKing == False:
+            piece.setKing()
+
+        # make red king
+        if row == 0 and piece.color == RED and piece.isKing == False:
+            piece.setKing()
 
 
