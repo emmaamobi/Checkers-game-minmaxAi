@@ -1,5 +1,6 @@
 import pygame
 from ui_consts import EACH_SQUARE, W,H,RED,WHITE,BLACK
+from piece import Piece
 class Board: 
     """
     Standard Checkers board, 8 x 8 grid, red vs white pieces. 
@@ -16,17 +17,17 @@ class Board:
         
 
     def initializeBoard(self):
-        # TODO: replace with actual pieces object
-        white_piece, red_piece = 1, 2
 
         for row in range(self.rows):
             self.board.append([])
             for col in range(self.cols):
                 if col % 2 == ((row + 1) % 2): # draw only on black squares
                     if row < 3:# white on first 3 rows
+                        white_piece = Piece(WHITE,row,col)
                         self.board[row].append(white_piece)
 
                     elif row > 4: #red on bottom 3 rows
+                        red_piece = Piece(WHITE,row,col)
                         self.board[row].append(red_piece)
 
                     else: # fill empty playable slots with 0
