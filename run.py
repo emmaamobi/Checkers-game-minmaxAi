@@ -1,13 +1,7 @@
 import pygame
 from board import Board
 from ui_consts import W, H
-
-# UI variables 
-w,h = 720, 720
-each_square = w / 8 # divide width by number of rows or cols to get square size
-red = (255, 0, 0)
-white = (255, 255, 255)
-black = (0, 0, 0)
+from utils import get_index_from_click
 
 # initialize window
 WIN = pygame.display.set_mode((W,H))
@@ -29,8 +23,12 @@ def main():
                 running = False
 
             if event.type == pygame.MOUSEBUTTONDOWN:
+                click = pygame.mouse.get_pos()
+                row, col = get_index_from_click(click)
+                piece = board.get_piece(row,col)
+                print(piece)
                 pass
-        board.draw_board(WIN)
+        board.draw_game(WIN)
         pygame.display.update()
 
     pygame.quit() # close window
