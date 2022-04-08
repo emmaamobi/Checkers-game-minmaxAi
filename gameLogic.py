@@ -41,7 +41,6 @@ class GameLogic:
         if self.selected:
             piece = self.selected
             piece.highlight(self.win)
-            print("PIECE: ", piece)
         pygame.display.update()
 
     def select_square(self, row, col):
