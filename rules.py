@@ -24,7 +24,7 @@ class Rules:
 
         return moves
         # Need to decide how to assign a value for Kings by color
-    def moveRight(self, start, stop, color, step, right, skipped =[]):
+    def moveRight(self, start, stop, color, step, right, skipped=[]):
         #Skipped is for a recursive call. Tells us if we've skipped squares.
         moves = {}
         last = []
@@ -47,9 +47,9 @@ class Rules:
                     else:
                         row = min(rows+3, 8)
                     moves.update(self.moveRight(row+step, row, step, color, right-1, skipped=last))
-                    moves.update(self.moveLeft(row+step, row, step, color, right+1, skipped =last))
+                    moves.update(self.moveLeft(row+step, row, step, color, right+1, skipped=last))
                 break
-            elif current.color ==color:
+            elif current.color == color:
                 break
             else:
                 last = [current]
@@ -59,7 +59,7 @@ class Rules:
         return moves
 
 
-    def moveLeft(self, start, stop, step, color, left, skipped = []):
+    def moveLeft(self, start, stop, step, color, left, skipped=[]):
         moves={}
         last = []
         for rows in range(start, stop, step):
@@ -80,10 +80,10 @@ class Rules:
                         row = max(rows-3, 0)
                     else:
                         row = min(rows+3, 8)
-                        moves.update(self.moveLeft(rows+step, row, step, color, left-1, skipped = last))
-                        moves.update(self.moveRight(rows+step, row, step, color, left+1, skipped = last))
+                    moves.update(self.moveLeft(rows+step, row, step, color, left-1, skipped=last))
+                    moves.update(self.moveRight(rows+step, row, step, color, left+1, skipped=last))
                     break
-                elif current.color ==color:
+                elif current.color == color:
                     break
                 else:
                     last = [current]
