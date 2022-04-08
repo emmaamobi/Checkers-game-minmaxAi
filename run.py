@@ -19,9 +19,9 @@ def main():
 
     while running:
         clock.tick(60) # constant framerate 
-        # if cur_game.check_for_winner() != None:
-        #     print("WINNER IS: ", cur_game.check_for_winner())
-        #     running = False 
+        if cur_game.check_for_winner() != None:
+            print("WINNER IS: ", cur_game.check_for_winner())
+            running = False 
 
 
         for event in pygame.event.get():
@@ -31,12 +31,10 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 click = pygame.mouse.get_pos()
                 row, col = get_index_from_click(click)
-                # cur_game.select(row,col)
-                piece = board.get_piece(row,col)
-                print(piece)
-        board.draw_game(WIN) # use cur_game.update()  instead
-        
-        pygame.display.update()
+                cur_game.select_square(row,col)
+                # piece = board.get_piece(row,col)
+                # print(piece)
+        cur_game.update_ui()
 
     pygame.quit() # close window
 

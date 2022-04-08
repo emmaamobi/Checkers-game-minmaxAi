@@ -21,7 +21,10 @@ class Rules:
 
         return moves
         # Need to decide how to assign a value for Kings by color
-    def moveRight(self, board, start, stop, color, step, right, skipped=[]):
+    def moveRight(self, board, start, stop, step, color, right, skipped=[]):
+        print("START: ", start)
+        print("STOP: ", stop)
+        print("STEP: ", step)
         #Skipped is for a recursive call. Tells us if we've skipped squares.
         moves = {}
         last = []
