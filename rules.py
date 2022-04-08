@@ -43,7 +43,7 @@ class Rules:
 
                 if last:
                     if step == -1:
-                        row = max(rows-3,0)
+                        row = max(rows-3,-1)
                     else:
                         row = min(rows+3, 8)
                     moves.update(self.moveRight(board,row+step, row, step, color, right-1, skipped=last))
@@ -77,7 +77,7 @@ class Rules:
 
                 if last:
                     if step == -1:
-                        row = max(rows-3, 0)
+                        row = max(rows-3, -1)
                     else:
                         row = min(rows+3, 8)
                     moves.update(self.moveLeft(board,rows+step, row, step, color, left-1, skipped=last))
