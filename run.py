@@ -3,6 +3,7 @@ from ui_consts import W, H
 from utils import get_index_from_click
 from gameLogic import GameLogic
 from board import Board
+from ui_consts import EACH_SQUARE, W,H,RED,WHITE,BLACK,BLUE,GOLD
 
 # initialize window
 WIN = pygame.display.set_mode((W,H))
@@ -20,7 +21,9 @@ def main():
     while running:
         clock.tick(60) # constant framerate 
         if cur_game.check_for_winner() != None:
-            print("WINNER IS: ", cur_game.check_for_winner())
+            color = cur_game.check_for_winner()
+            color = "RED" if color == RED else "WHITE"
+            print("WINNER IS: ", color)
             running = False 
 
 

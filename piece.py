@@ -75,6 +75,7 @@ class Piece:
 
     def __repr__(self):
         res = ""
-        res += "{} piece located at {},{}\n".format(self.color,self.row,self.col)
+        color_str = "RED" if self.color == RED else "WHITE"
+        res += "{} piece located at {},{}\n".format(color_str,self.row,self.col)
         return res
 
