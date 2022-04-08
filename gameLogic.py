@@ -1,14 +1,18 @@
+import pygame
 from rules import Rules
+from ui_consts import EACH_SQUARE, W,H,RED,WHITE,BLACK
 
 class GameLogic:
    
-    def __init__(self, board): 
-        self.game = self
+    def __init__(self, board,win): 
         self.board = board
+        self.win = win
         self.rules = Rules()
-        self.player_1 ="RED" # referes to pieces
-        self.player_2 ="WHITE"
+        self.player_1 = RED # referes to pieces
+        self.player_2 = WHITE
         self.currentPlayer=self.player_1
+        self.selected = None
+        self.valid_moves = {}
         #self.gameScore = self.score() 
 
 
@@ -32,23 +36,42 @@ class GameLogic:
                 
 
 
-    def makeMove(self,piece,destination_coordinate):
-        piece_position = piece.getPosition()
-        
-        # check if the piece is jumping over an opponent's piece
-        if abs(destination_coordinate[0]-piece_position[0])>1 or abs(destination_coordinate[1]-piece_position[1])  :
-            currentPiece = piece.getColor()
+    def update_ui(self):
+        self.board.draw_game(self.win)
+        pygame.display.update()
 
-            # decrease number of opponent's pieces
-            if currentPiece == "RED":
-                self.board.setBlackPieces(self.board.getBlakcPieces()-1)
-            else:
-                self.board.setRedPieces(self.board.getRedPieces()-1)
-        # changes playing piece position       
-        piece.setPosition(destination_coordinate[0],destination_coordinate[1])      
+    def select_square(self, row, col):
+        if self.selected:
+            print("VALID MOVES: ", self.valid_moves)
+            res = self.makeMove(row, col)
+            if not res:
+                self.selected = None
+                self.select_square(row, col)
+        
+        piece = self.board.get_piece(row, col)
+        if piece != 0 and piece.color == self.currentPlayer:
+            self.selected = piece
+            self.valid_moves = self.rules.possibleMoves(self.board,piece)
+            return True
+            
+        return False
+
+    def makeMove(self, row, col):
+        piece = self.board.get_piece(row, col)
+        if self.selected and piece == 0 and (row, col) in self.valid_moves:
+            self.board.move_piece(self.selected, row, col)
+            skipped = self.valid_moves[(row, col)]
+            if skipped:
+                self.board.remove(skipped)
+            self.switchTurn()
+        else:
+            return False
+
+        return True
             
 
     def switchTurn(self):
+        self.valid_moves = {} # reset valid moves
         if self.currentPlayer == self.player_1:
             self.currentPlayer = self.player_2
             print("Red'pieces turn")
@@ -58,15 +81,7 @@ class GameLogic:
 
 
     def check_for_winner(self):
-        if self.board.getRedPieces() == 0 :
-            print("White pieces player won")
-            return False
-        elif self.board.getBlackPieces() == 0 :
-            print("Red pieces player won")
-            return False
-        else:
-            print("Keep playing..")
-            return True   
+        return self.rules.winner(self.board)
 
 
     # def score(self):

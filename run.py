@@ -1,7 +1,8 @@
 import pygame
-from board import Board
 from ui_consts import W, H
 from utils import get_index_from_click
+from gameLogic import GameLogic
+from board import Board
 
 # initialize window
 WIN = pygame.display.set_mode((W,H))
@@ -14,9 +15,14 @@ def main():
     running = True
     clock = pygame.time.Clock()
     board = Board()
+    cur_game = GameLogic(board,WIN)
 
     while running:
         clock.tick(60) # constant framerate 
+        if cur_game.check_for_winner() != None:
+            print("WINNER IS: ", cur_game.check_for_winner())
+            running = False 
+
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -25,11 +31,10 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 click = pygame.mouse.get_pos()
                 row, col = get_index_from_click(click)
-                piece = board.get_piece(row,col)
-                print(piece)
-                pass
-        board.draw_game(WIN)
-        pygame.display.update()
+                cur_game.select_square(row,col)
+                # piece = board.get_piece(row,col)
+                # print(piece)
+        cur_game.update_ui()
 
     pygame.quit() # close window
 
