@@ -20,17 +20,20 @@ class Piece:
 
     def setKing(self): 
         self.isKing=True
+
     def setColor(self,c):
         self.color=c
-    def setPosition(self,x,y):
-        self.xPostion=x
-        self.col=y
+
+
     def getKing(self):
         return self.isKing
+
     def getColor(self):
         return self.color
+
     def getPosition(self):
-        return [self.row, self.YPosition]
+        return [self.row, self.col]
+
     def getPossibleMoves(self):
         return self.possibleMoves
 

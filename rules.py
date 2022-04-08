@@ -82,15 +82,15 @@ class Rules:
                         row = min(rows+3, 8)
                     moves.update(self.moveLeft(rows+step, row, step, color, left-1, skipped=last))
                     moves.update(self.moveRight(rows+step, row, step, color, left+1, skipped=last))
-                    break
-                elif current.color == color:
-                    break
-                else:
-                    last = [current]
+                break
+            elif current.color == color:
+                break
+            else:
+                last = [current]
 
-                left -=1
+            left -=1
 
-            return moves
+        return moves
 
         #We might need to relocate the left anf right traversal/moves to other classes
 
