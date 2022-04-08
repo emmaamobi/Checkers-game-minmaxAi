@@ -103,9 +103,9 @@ class Rules:
                 self.board.white_left -= 1
 
     def winner(self):
-        if board.red_pieces <= 0 and board.red_kings <=0:
+        if board.red_pieces <= 0:
             return WHITE
-        elif board.white_pieces <= 0 and board.white_kings <=0:
+        elif board.white_pieces <= 0:
             return RED
 
         return None

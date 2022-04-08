@@ -9,6 +9,8 @@ class GameLogic:
         self.player_1 ="RED" # referes to pieces
         self.player_2 ="WHITE"
         self.currentPlayer=self.player_1
+        self.selected = None
+        self.valid_moves = {}
         #self.gameScore = self.score() 
 
 
@@ -31,6 +33,21 @@ class GameLogic:
         self.playing_game()
                 
 
+
+    def select_square(self, row, col):
+        if self.selected:
+            res = self.makeMove(row, col)
+            if not res:
+                self.selected = None
+                self.select_square(row, col)
+        
+        piece = self.board.get_piece(row, col)
+        if piece != 0 and piece.color == self.currentPlayer:
+            self.selected = piece
+            self.valid_moves = self.board.get_valid_moves(piece)
+            return True
+            
+        return False
 
     def makeMove(self,piece,destination_coordinate):
         piece_position = piece.getPosition()
