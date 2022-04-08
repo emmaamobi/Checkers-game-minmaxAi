@@ -38,11 +38,13 @@ class GameLogic:
 
     def update_ui(self):
         self.board.draw_game(self.win)
+        if self.selected:
+            piece = self.selected
+            piece.highlight(self.win)
         pygame.display.update()
 
     def select_square(self, row, col):
         if self.selected:
-            print("VALID MOVES: ", self.valid_moves)
             res = self.makeMove(row, col)
             if not res:
                 self.selected = None
@@ -51,7 +53,10 @@ class GameLogic:
         piece = self.board.get_piece(row, col)
         if piece != 0 and piece.color == self.currentPlayer:
             self.selected = piece
+            # highlight piece
+
             self.valid_moves = self.rules.possibleMoves(self.board,piece)
+            print("VALID MOVES: ", self.valid_moves)
             return True
             
         return False
@@ -72,6 +77,7 @@ class GameLogic:
 
     def switchTurn(self):
         self.valid_moves = {} # reset valid moves
+        self.selected = None
         if self.currentPlayer == self.player_1:
             self.currentPlayer = self.player_2
             print("Red'pieces turn")

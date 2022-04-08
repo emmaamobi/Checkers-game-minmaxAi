@@ -43,6 +43,18 @@ class Piece:
         self.x_cord = (EACH_SQUARE * self.col) + EACH_SQUARE // 2
         self.y_cord = (EACH_SQUARE * self.row) + EACH_SQUARE // 2
 
+    def highlight(self,win):
+        x_y_cords = (self.x_cord, self.y_cord)
+        pad = 10
+        radius = (EACH_SQUARE // 2) - pad
+        outline = 10
+        pygame.draw.circle(win, BLUE, x_y_cords, radius + outline )
+        pygame.draw.circle(win, self.color, x_y_cords, radius)
+
+        ## draw king
+        if self.isKing:
+            radius_smaller = ((EACH_SQUARE // 2) // 2)
+            pygame.draw.circle(win, GOLD, x_y_cords, radius_smaller)
     def draw_piece(self,win):
         x_y_cords = (self.x_cord, self.y_cord)
         pad = 10
