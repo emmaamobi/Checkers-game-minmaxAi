@@ -1,13 +1,13 @@
 from rules import Rules
+from ui_consts import EACH_SQUARE, W,H,RED,WHITE,BLACK
 
 class GameLogic:
    
     def __init__(self, board): 
-        self.game = self
         self.board = board
         self.rules = Rules()
-        self.player_1 ="RED" # referes to pieces
-        self.player_2 ="WHITE"
+        self.player_1 = RED # referes to pieces
+        self.player_2 = WHITE
         self.currentPlayer=self.player_1
         self.selected = None
         self.valid_moves = {}
@@ -49,20 +49,18 @@ class GameLogic:
             
         return False
 
-    def makeMove(self,piece,destination_coordinate):
-        piece_position = piece.getPosition()
-        
-        # check if the piece is jumping over an opponent's piece
-        if abs(destination_coordinate[0]-piece_position[0])>1 or abs(destination_coordinate[1]-piece_position[1])  :
-            currentPiece = piece.getColor()
+    def makeMove(self, row, col):
+        piece = self.board.get_piece(row, col)
+        if self.selected and piece == 0 and (row, col) in self.valid_moves:
+            self.board.move_piece(self.selected, row, col)
+            skipped = self.valid_moves[(row, col)]
+            if skipped:
+                self.board.remove(skipped)
+            self.switchTurn()
+        else:
+            return False
 
-            # decrease number of opponent's pieces
-            if currentPiece == "RED":
-                self.board.setBlackPieces(self.board.getBlakcPieces()-1)
-            else:
-                self.board.setRedPieces(self.board.getRedPieces()-1)
-        # changes playing piece position       
-        piece.setPosition(destination_coordinate[0],destination_coordinate[1])      
+        return True
             
 
     def switchTurn(self):
@@ -75,15 +73,7 @@ class GameLogic:
 
 
     def check_for_winner(self):
-        if self.board.getRedPieces() == 0 :
-            print("White pieces player won")
-            return False
-        elif self.board.getBlackPieces() == 0 :
-            print("Red pieces player won")
-            return False
-        else:
-            print("Keep playing..")
-            return True   
+        return self.rules.winner(self.board)
 
 
     # def score(self):

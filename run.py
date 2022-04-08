@@ -15,7 +15,7 @@ def main():
     running = True
     clock = pygame.time.Clock()
     board = Board()
-    #cur_game = GameLogic(WIN)
+    #cur_game = GameLogic(board,WIN)
 
     while running:
         clock.tick(60) # constant framerate 
