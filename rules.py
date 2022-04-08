@@ -6,13 +6,13 @@ class Rules:
     #import board
     #import game logic
     #import piece
-    def __init__(self):
-        pass
+    def __init__(self,board):
+        self.board = board
 
     def possibleMoves(self, piece):
         moves = {} #empty dictionary with potential moves as the call.
-        left = self.col - 1 #We need to change this match the appropriate data structure
-        right = self.col + 1
+        left = piece.col - 1 #We need to change this match the appropriate data structure
+        right = piece.col + 1
         row = piece.row
 
         if piece.color == RED or piece.isKing ==True:
@@ -96,19 +96,9 @@ class Rules:
 
 
     def winner(self):
-        if board.red_pieces <= 0:
+        if self.board.red_pieces <= 0:
             return WHITE
-        elif board.white_pieces <= 0:
+        elif self.board.white_pieces <= 0:
             return RED
 
         return None
-
-
-
-
-
-
-
-
-
-
