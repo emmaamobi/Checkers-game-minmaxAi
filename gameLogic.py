@@ -42,6 +42,7 @@ class GameLogic:
 
     def select_square(self, row, col):
         if self.selected:
+            print("VALID MOVES: ", self.valid_moves)
             res = self.makeMove(row, col)
             if not res:
                 self.selected = None
