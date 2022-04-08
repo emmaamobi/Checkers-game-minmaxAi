@@ -80,6 +80,14 @@ class Board:
         # update piece pos
         piece.update_pos(row,col)
 
+    def remove(self, pieces):
+        for piece in pieces:
+            self.board[piece.row][piece.col] = 0
+            if piece.color == RED:
+                self.board.red_left -= 1
+            else:
+                self.board.white_left -= 1
+
     """
     returns piece at given index
     """

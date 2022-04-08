@@ -1,13 +1,13 @@
-import board
+from board import Board
+from piece import Piece
 from ui_consts import EACH_SQUARE, W,H,RED,WHITE,BLACK,BLUE,GOLD
 
 class Rules:
     #import board
     #import game logic
     #import piece
-    def __init__(self, piece):
-        self.possibleMoves = []
-        self.king = True
+    def __init__(self):
+        pass
 
     def possibleMoves(self, piece):
         moves = {} #empty dictionary with potential moves as the call.
@@ -94,13 +94,6 @@ class Rules:
 
         #We might need to relocate the left anf right traversal/moves to other classes
 
-    def remove(self, pieces):
-        for piece in pieces:
-            self.board[piece.row][piece.col] = 0
-            if piece.color == RED:
-                self.board.red_left -= 1
-            else:
-                self.board.white_left -= 1
 
     def winner(self):
         if board.red_pieces <= 0:
