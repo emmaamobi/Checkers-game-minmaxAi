@@ -4,9 +4,9 @@ from ui_consts import EACH_SQUARE, W,H,RED,WHITE,BLACK
 
 class GameLogic:
    
-    def __init__(self, board,win): 
+    def __init__(self, board,window): 
         self.board = board
-        self.win = win
+        self.window = window
         self.rules = Rules()
         self.player_1 = RED # referes to pieces
         self.player_2 = WHITE
@@ -37,10 +37,10 @@ class GameLogic:
 
 
     def update_ui(self):
-        self.board.draw_game(self.win)
+        self.board.draw_game(self.window)
         if self.selected:
             piece = self.selected
-            piece.highlight(self.win)
+            piece.highlight(self.window)
         pygame.display.update()
 
     def select_square(self, row, col):
@@ -80,10 +80,10 @@ class GameLogic:
         self.selected = None
         if self.currentPlayer == self.player_1:
             self.currentPlayer = self.player_2
-            print("Red'pieces turn")
+            print("white 'pieces turn")
         else:
             self.currentPlayer= self.player_1 
-            print("White'pieces turn")
+            print("red 'pieces turn")
 
 
     def check_for_winner(self):

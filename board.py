@@ -43,26 +43,26 @@ class Board:
     def get_board(self):
         return self.board
 
-    def draw_board(self,win):
-        win.fill(BLACK)
+    def draw_board(self,window):
+        window.fill(BLACK)
         for row in range(self.rows):
             x_cord = row*EACH_SQUARE
             width, height = EACH_SQUARE, EACH_SQUARE
             for col in range(row % 2, self.rows, 2):
                 y_cord = col*EACH_SQUARE
                 mini_square = (x_cord, y_cord, width, height)
-                pygame.draw.rect(win, WHITE, mini_square)
+                pygame.draw.rect(window, WHITE, mini_square)
 
-    def draw_pieces(self, win):
+    def draw_pieces(self, window):
         for row in range (self.rows):
             for col in range(self.cols):
                 cur_piece = self.board[row][col]
                 if cur_piece != 0:
-                    cur_piece.draw_piece(win)
+                    cur_piece.draw_piece(window)
     
-    def draw_game(self,win):
-        self.draw_board(win)
-        self.draw_pieces(win)
+    def draw_game(self,window):
+        self.draw_board(window)
+        self.draw_pieces(window)
     
     def move_piece(self, piece, row, col):
         self.board[piece.row][piece.col], self.board[row][col] = self.board[row][col], self.board[piece.row][piece.col]
