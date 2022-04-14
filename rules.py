@@ -20,6 +20,11 @@ class Rules:
             moves.update(self.moveRight(board, row+1, min(row+3, 8), 1, piece.color, right))
 
         return moves
+    
+    #TODO
+    def getAllMoves(self, board,color):
+        moves={}
+        allPieces=board.getAllPieces(color)
         # Need to decide how to assign a value for Kings by color
     def moveRight(self, board, start, stop, step, color, right, skipped=[]):
         # print("START: ", start)
