@@ -25,6 +25,11 @@ class Rules:
     def getAllMoves(self, board,color):
         moves={}
         allPieces=board.getAllPieces(color)
+        for piece in allPieces: 
+            move=self.possibleMoves(board,piece)
+            moves[piece]=move
+        return moves
+        
         # Need to decide how to assign a value for Kings by color
     def moveRight(self, board, start, stop, step, color, right, skipped=[]):
         # print("START: ", start)

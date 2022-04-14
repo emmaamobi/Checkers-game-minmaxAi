@@ -19,7 +19,7 @@ class AIPlayer:
     def minimax(self,currentBoard, pieceDepth, currentGame):
         maxEval = float('-inf')
         best_move = None
-        for move in Rules.getAllMoves(currentBoard, WHITE, currentGame):
+        for move in Rules.getAllMoves(currentBoard, WHITE):
             evaluation = self.minimax(move, pieceDepth-1, False, g=currentGame)[0]
             maxEval = max(maxEval, evaluation)
             if maxEval == evaluation:
