@@ -42,6 +42,7 @@ class Board:
 
     def get_board(self):
         return self.board
+    
 
     def draw_board(self,window):
         window.fill(BLACK)
@@ -93,3 +94,20 @@ class Board:
     """
     def get_piece(self, row, col):
         return self.board[row][col]
+    
+    #get all pieces for given color
+    def getAllPieces(self, color):
+        pieces=[]
+        if color==WHITE: 
+            for row in range(self.rows): 
+                for col in range(self.cols):
+                    piece=self.get_piece(row,col)
+                    if piece==WHITE:
+                        pieces.append(piece)
+        return pieces
+                        
+                        
+                        
+                        
+                        
+                        

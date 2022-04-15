@@ -4,7 +4,7 @@ from ui_consts import EACH_SQUARE, W,H,RED,WHITE,BLACK
 
 class GameLogic:
    
-    def __init__(self, board,window): 
+    def __init__(self, board,window,AIGame): 
         self.board = board
         self.window = window
         self.rules = Rules()
@@ -13,26 +13,27 @@ class GameLogic:
         self.currentPlayer=self.player_1
         self.selected = None
         self.valid_moves = {}
+        self.ai_game=AIGame
         #self.gameScore = self.score() 
 
 
-    def playing_game(self):
+    # def playing_game(self):
 
-        while self.check_for_winner()==True :
-            print(self.currentPlayer, "pieces turn") 
+    #     while self.check_for_winner()==True :
+    #         print(self.currentPlayer, "pieces turn") 
          
-            # calls board to get board state, playing piece and chosen by USER move
-            # 
-            if self.rules.validateMove(self.board.getInput(boardState,playing_piece, chosen_move)):
-                self.game.makeMove(playing_piece, chosen_move)
-                self.game.switchTurn()
-                print("Move is made") # for debugging purposes
+    #         # calls board to get board state, playing piece and chosen by USER move
+    #         # 
+    #         if self.rules.validateMove(self.board.getInput(boardState,playing_piece, chosen_move)):
+    #             self.game.makeMove(playing_piece, chosen_move)
+    #             self.game.switchTurn()
+    #             print("Move is made") # for debugging purposes
 
-                return True
-            else:
-                print ("Invalid move, try again")
+    #             return True
+    #         else:
+    #             print ("Invalid move, try again")
         
-        self.playing_game()
+    #     self.playing_game()
                 
 
 

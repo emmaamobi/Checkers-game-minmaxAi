@@ -12,10 +12,6 @@ class Piece:
         self.x_cord = 0
         self.y_cord = 0
         self.set_cord()
-
-
-        
-#TODO: Implement setter for possible moves
         
 
     def setKing(self): 
