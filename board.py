@@ -72,11 +72,13 @@ class Board:
         if row == self.rows-1 and piece.color == WHITE and piece.isKing == False:
             piece.setKing()
             self.white_kings += 1
+            self.white_pieces -= 1
 
         # make red king
         if row == 0 and piece.color == RED and piece.isKing == False:
             piece.setKing()
             self.red_kings += 1
+            self.red_pieces -= 1
 
         # update piece pos
         piece.update_pos(row,col)
