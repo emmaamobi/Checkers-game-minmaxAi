@@ -65,7 +65,7 @@ def main():
 
             if cur_game.currentPlayer == WHITE:
                 ## call minmax here on board and get the best move for ai
-                cur_game.ai_play_random()
+                cur_game.ai_play_minimax()
             
 
             for event in pygame.event.get():

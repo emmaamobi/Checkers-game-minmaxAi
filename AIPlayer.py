@@ -24,15 +24,16 @@ class AIPlayer:
             row=None
             column=None
             bestMove=None
-            for move in Rules.getAllMoves(currentBoard, WHITE):
+            for move in self.rules.getAllMoves(currentBoard, WHITE):
                 if moveDepth==0: 
                     return move
                 nextMove=self.minimax(currentBoard, currentGame,moveDepth-1)
-                maxEval=max(nextMove,maxEval)
+                score=1
+                maxEval=max(nextMove[0],maxEval)
                 if maxEval==nextMove: 
                     bestMove=nextMove
                     
-            return piece, row, column
+            return score, piece, row, column
                 
                 
                 
