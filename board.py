@@ -88,6 +88,8 @@ class Board:
                 self.red_pieces -= 1
             else:
                 self.white_pieces -= 1
+        print("RED PIECES: ", self.red_pieces)
+        print("white PIECES: ", self.white_pieces)
 
     """
     returns piece at given index

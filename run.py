@@ -56,14 +56,16 @@ def main():
         while running:
             clock.tick(60) # constant framerate 
 
-            if cur_game.currentPlayer == WHITE:
-                ## call minmax here on board and get the best move for ai
-                cur_game.ai_play_random()
             if cur_game.check_for_winner() != None:
                 color = cur_game.check_for_winner()
                 color = "RED" if color == RED else "WHITE"
                 print("WINNER IS: ", color)
                 running = False 
+                break
+
+            if cur_game.currentPlayer == WHITE:
+                ## call minmax here on board and get the best move for ai
+                cur_game.ai_play_random()
             
 
             for event in pygame.event.get():

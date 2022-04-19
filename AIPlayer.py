@@ -34,3 +34,5 @@ class AIPlayer:
                 random_move = list(allMoves[piece].keys())[0]
                 row, col = random_move[0], random_move[1]
                 return piece, row, col
+
+        return None
