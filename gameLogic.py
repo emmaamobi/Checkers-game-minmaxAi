@@ -101,8 +101,10 @@ class GameLogic:
         piece, row, col = self.AIPlayer.randomMove(self.board)
         self.ai_make_move(piece, row, col)
 
+    def ai_play_minimax(self):
+        piece, row, col=self.AIPlayer.minimax(self.board, self, 2)
+        self.ai_make_move(piece, row, col)
         
-
     def check_for_winner(self):
         return self.rules.winner(self.board)
 
