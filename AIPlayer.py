@@ -41,9 +41,11 @@ class AIPlayer:
                 score=self.getScore(board)
                 maxEval=max(nextMove[0],maxEval)
                 if maxEval==score: 
+                    row=x.getPosition()[0]
+                    col=x.getPosition()[1]
                     piece=x
-                    row=x.get
                 return maxEval, piece, row, column
+        
                 
                
     def getScore(self, board):
