@@ -24,14 +24,6 @@ class AIPlayer:
         column=None
         bestMove=None
         for move in Rules.getAllMoves(currentBoard, WHITE):
-<<<<<<< Updated upstream
-            evaluation = self.minimax(move, pieceDepth-1, False, g=currentGame)[0]
-            maxEval = max(maxEval, evaluation)
-            if maxEval == evaluation:
-                best_move = move
-    
-=======
-            print(move)
             if moveDepth==0: 
                 return move
             nextMove=self.minimax(currentBoard, currentGame,moveDepth-1)
@@ -57,4 +49,3 @@ class AIPlayer:
                 return piece, row, col
 
         return None
->>>>>>> Stashed changes
