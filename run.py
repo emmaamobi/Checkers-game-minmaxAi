@@ -30,6 +30,7 @@ def main():
     running = True
     clock = pygame.time.Clock()
     board = Board()
+<<<<<<< Updated upstream
     cur_game = GameLogic(board,WIN,AI_Game)
 
     while running:
@@ -54,6 +55,59 @@ def main():
                 # piece = board.get_piece(row,col)
                 # print(piece)
         cur_game.update_ui()
+=======
+    cur_game = GameLogic(board,WIN)
+
+    if game_option == 0:
+        # print("P VS AI NOT IMPLEMENTED YET, quitting")
+        # sys.exit(0)
+        while running:
+            clock.tick(60) # constant framerate 
+
+            if cur_game.check_for_winner() != None:
+                color = cur_game.check_for_winner()
+                color = "RED" if color == RED else "WHITE"
+                print("WINNER IS: ", color)
+                running = False 
+                break
+
+            if cur_game.currentPlayer == WHITE:
+                ## call minmax here on board and get the best move for ai
+                cur_game.ai_play_minimax()
+            
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    click = pygame.mouse.get_pos()
+                    row, col = get_index_from_click(click)
+                    cur_game.select_square(row,col)
+                    # piece = board.get_piece(row,col)
+                    # print(piece)
+            cur_game.update_ui()
+    else:
+        while running:
+            clock.tick(60) # constant framerate 
+            if cur_game.check_for_winner() != None:
+                color = cur_game.check_for_winner()
+                color = "RED" if color == RED else "WHITE"
+                print("WINNER IS: ", color)
+                running = False 
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    click = pygame.mouse.get_pos()
+                    row, col = get_index_from_click(click)
+                    cur_game.select_square(row,col)
+                    # piece = board.get_piece(row,col)
+                    # print(piece)
+            cur_game.update_ui()
+>>>>>>> Stashed changes
 
     pygame.quit() # close window
 

@@ -21,7 +21,6 @@ class Rules:
 
         return moves
     
-    #TODO
     def getAllMoves(self, board,color):
         moves={}
         allPieces=board.getAllPieces(color)

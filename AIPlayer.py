@@ -16,12 +16,45 @@ class AIPlayer:
         piece=self.bestPiece()
         game.makeMove()
         
-    def minimax(self,currentBoard, pieceDepth, currentGame):
+    def minimax(self,currentBoard, currentGame, moveDepth):
         maxEval = float('-inf')
-        best_move = None
+        minEval=float('inf')
+        piece=None
+        row=None
+        column=None
+        bestMove=None
         for move in Rules.getAllMoves(currentBoard, WHITE):
+<<<<<<< Updated upstream
             evaluation = self.minimax(move, pieceDepth-1, False, g=currentGame)[0]
             maxEval = max(maxEval, evaluation)
             if maxEval == evaluation:
                 best_move = move
     
+=======
+            print(move)
+            if moveDepth==0: 
+                return move
+            nextMove=self.minimax(currentBoard, currentGame,moveDepth-1)
+            maxEval=max(nextMove,maxEval)
+            if maxEval==nextMove: 
+                bestMove=nextMove
+                
+        return piece, row, column
+                
+                
+                
+                
+                
+                
+    def randomMove(self, board):
+        allMoves = self.rules.getAllMoves(board, WHITE)
+        # print("ALL MOVESS, for all pieces: ", allMoves)
+
+        for piece in allMoves:
+            if allMoves[piece]:
+                random_move = list(allMoves[piece].keys())[0]
+                row, col = random_move[0], random_move[1]
+                return piece, row, col
+
+        return None
+>>>>>>> Stashed changes

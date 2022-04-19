@@ -87,6 +87,26 @@ class GameLogic:
             print("red 'pieces turn")
 
 
+<<<<<<< Updated upstream
+=======
+    def ai_make_move(self,piece, row, col):
+        self.valid_moves = self.rules.possibleMoves(self.board,piece)
+        self.board.move_piece(piece, row, col)
+        skipped = self.valid_moves[(row, col)]
+        if skipped:
+            self.board.remove(skipped)
+        self.switchTurn()
+
+    def ai_play_random(self):
+        piece, row, col = self.AIPlayer.randomMove(self.board)
+        self.ai_make_move(piece, row, col)
+
+    def ai_play_minimax(self):
+        piece, row, col=self.AIPlayer.minimax(self.board, self, 2)
+        self.ai_make_move(piece, row, col)
+        
+
+>>>>>>> Stashed changes
     def check_for_winner(self):
         return self.rules.winner(self.board)
 
