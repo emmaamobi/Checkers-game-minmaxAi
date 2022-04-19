@@ -1,10 +1,11 @@
 import pygame
 from rules import Rules
 from ui_consts import EACH_SQUARE, W,H,RED,WHITE,BLACK
+from AIPlayer import AIPlayer
 
 class GameLogic:
    
-    def __init__(self, board,window,AIGame): 
+    def __init__(self, board,window): 
         self.board = board
         self.window = window
         self.rules = Rules()
@@ -13,7 +14,8 @@ class GameLogic:
         self.currentPlayer=self.player_1
         self.selected = None
         self.valid_moves = {}
-        self.ai_game=AIGame
+        self.AIPlayer = AIPlayer()
+        # self.ai_game=AIGame
         #self.gameScore = self.score() 
 
 
@@ -57,7 +59,7 @@ class GameLogic:
             # highlight piece
 
             self.valid_moves = self.rules.possibleMoves(self.board,piece)
-            print("VALID MOVES: ", self.valid_moves)
+            # print("VALID MOVES: ", self.valid_moves)
             return True
             
         return False
@@ -103,6 +105,22 @@ class GameLogic:
         self.ai_make_move(piece, row, col)
         
 
+    def ai_make_move(self,piece, row, col):
+        self.valid_moves = self.rules.possibleMoves(self.board,piece)
+        self.board.move_piece(piece, row, col)
+        skipped = self.valid_moves[(row, col)]
+        if skipped:
+            self.board.remove(skipped)
+        self.switchTurn()
+
+    def ai_play_random(self):
+        piece, row, col = self.AIPlayer.randomMove(self.board)
+        self.ai_make_move(piece, row, col)
+
+    def ai_play_minimax(self):
+        piece, row, col=self.AIPlayer.minimax(self.board, self, 2)
+        self.ai_make_move(piece, row, col)
+        
     def check_for_winner(self):
         return self.rules.winner(self.board)
 

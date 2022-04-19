@@ -88,6 +88,8 @@ class Board:
                 self.red_pieces -= 1
             else:
                 self.white_pieces -= 1
+        print("RED PIECES: ", self.red_pieces)
+        print("white PIECES: ", self.white_pieces)
 
     """
     returns piece at given index
@@ -98,12 +100,11 @@ class Board:
     #get all pieces for given color
     def getAllPieces(self, color):
         pieces=[]
-        if color==WHITE: 
-            for row in range(self.rows): 
-                for col in range(self.cols):
-                    piece=self.get_piece(row,col)
-                    if piece==WHITE:
-                        pieces.append(piece)
+        for row in range(self.rows): 
+            for col in range(self.cols):
+                piece=self.board[row][col]
+                if piece != 0 and piece.color == color:
+                    pieces.append(piece)
         return pieces
                         
                         

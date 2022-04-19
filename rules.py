@@ -24,6 +24,7 @@ class Rules:
     def getAllMoves(self, board,color):
         moves={}
         allPieces=board.getAllPieces(color)
+        # print("ALL PIECES: ", allPieces)
         for piece in allPieces: 
             move=self.possibleMoves(board,piece)
             moves[piece]=move

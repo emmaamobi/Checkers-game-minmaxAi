@@ -6,6 +6,7 @@ from ui_consts import EACH_SQUARE, W,H,RED,WHITE,BLACK,BLUE,GOLD
 class AIPlayer:
     def __init__(self):
         self.pieceColor = WHITE
+        self.rules = Rules()
         
     def bestPiece():
         return 0
@@ -17,24 +18,21 @@ class AIPlayer:
         game.makeMove()
         
     def minimax(self,currentBoard, currentGame, moveDepth):
-        maxEval = float('-inf')
-        minEval=float('inf')
-        piece=None
-        row=None
-        column=None
-        bestMove=None
-        for move in Rules.getAllMoves(currentBoard, WHITE):
-            if moveDepth==0: 
-                return move
-            nextMove=self.minimax(currentBoard, currentGame,moveDepth-1)
-            maxEval=max(nextMove,maxEval)
-            if maxEval==nextMove: 
-                bestMove=nextMove
-                
-        return piece, row, column
-                
-                
-                
+            maxEval = float('-inf')
+            minEval=float('inf')
+            piece=None
+            row=None
+            column=None
+            bestMove=None
+            for move in Rules.getAllMoves(currentBoard, WHITE):
+                if moveDepth==0: 
+                    return move
+                nextMove=self.minimax(currentBoard, currentGame,moveDepth-1)
+                maxEval=max(nextMove,maxEval)
+                if maxEval==nextMove: 
+                    bestMove=nextMove
+                    
+            return piece, row, column
                 
                 
                 
