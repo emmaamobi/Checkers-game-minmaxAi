@@ -86,9 +86,6 @@ class GameLogic:
             self.currentPlayer= self.player_1 
             print("red 'pieces turn")
 
-
-<<<<<<< Updated upstream
-=======
     def ai_make_move(self,piece, row, col):
         self.valid_moves = self.rules.possibleMoves(self.board,piece)
         self.board.move_piece(piece, row, col)
@@ -106,13 +103,8 @@ class GameLogic:
         self.ai_make_move(piece, row, col)
         
 
->>>>>>> Stashed changes
     def check_for_winner(self):
         return self.rules.winner(self.board)
-
-
-    # def score(self):
-    #     self.score = self.player_1.getPieces()-self.player_2.getPieces()+(self.player_1.getNumberKings()*1.5 -self.player_2.getNumberKings()*1.5)
 
 
 

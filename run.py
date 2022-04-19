@@ -5,57 +5,49 @@ from gameLogic import GameLogic
 from board import Board
 from ui_consts import EACH_SQUARE, W,H,RED,WHITE,BLACK,BLUE,GOLD
 import PySimpleGUI as sg
+import sys
 
-# initialize window
-WIN = pygame.display.set_mode((W,H))
-pygame.display.set_caption('checkers minmax')
+def getUserOption():
+    options = ['PvP','PvAI']
 
+    # All the stuff inside your window.
+    layout = [ 
+                [sg.Text('Select one->'), sg.Listbox(options,select_mode=sg.LISTBOX_SELECT_MODE_SINGLE,size=(20,len(options)))],
+                [sg.Button('Ok'), sg.Button('Cancel')]
+            ]
+
+    # Create the Window
+    window = sg.Window('SELECT GAME MODE', layout)
+
+    # Event Loop to process "events" and get the "values" of the input
+    while True:
+        event, values = window.read()
+        print( f"event={event}" )
+        if event is None or event == 'Ok' or event == 'Cancel': # if user closes window or clicks cancel
+            break
+            
+    # close  the window        
+    window.close()
+
+    return values[0]
 
 
 # runner
 def main():
-    AI_Game=False
-    # event, values = sg.Window('What kind of game would you like to play?', [[sg.Text('Select one->'), sg.Listbox(['One Player', 'Two Player'], size=(20, 3), key='LB')],
-    # [sg.Button('Ok'), sg.Button('Cancel')]]).read(close=True)
-    
-    # if event == 'Ok':
-    #     if {values["LB"][0]}=="Two Player":
-    #         AI_Game=True
-    #     sg.popup(f'You chose {values["LB"][0]}')
-    # else:
-    #     sg.popup_cancel('User aborted')
+    ans = getUserOption()
+    game_option = 1 if ans == ['PvP'] else 0
+    # initialize window
+    WIN = pygame.display.set_mode((W,H))
+    pygame.display.set_caption('checkers minmax')
+    # AI_Game=False
+    # print("WELCOME TO CHECKERS GAME")
+    # game_option = int(input("SELECT '1' for P v P, or '0' for P v AI: "))
+    # print("Starting game \n")
             
-    
     
     running = True
     clock = pygame.time.Clock()
     board = Board()
-<<<<<<< Updated upstream
-    cur_game = GameLogic(board,WIN,AI_Game)
-
-    while running:
-        clock.tick(60) # constant framerate 
-        if cur_game.check_for_winner() != None:
-            color = cur_game.check_for_winner()
-            color = "RED" if color == RED else "WHITE"
-            print("WINNER IS: ", color)
-            running = False 
-        
-        if AI_Game==True and cur_game.currentPlayer==WHITE :
-            print("AI game running")
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                click = pygame.mouse.get_pos()
-                row, col = get_index_from_click(click)
-                cur_game.select_square(row,col)
-                # piece = board.get_piece(row,col)
-                # print(piece)
-        cur_game.update_ui()
-=======
     cur_game = GameLogic(board,WIN)
 
     if game_option == 0:
@@ -73,7 +65,7 @@ def main():
 
             if cur_game.currentPlayer == WHITE:
                 ## call minmax here on board and get the best move for ai
-                cur_game.ai_play_minimax()
+                cur_game.ai_play_random()
             
 
             for event in pygame.event.get():
@@ -107,7 +99,6 @@ def main():
                     # piece = board.get_piece(row,col)
                     # print(piece)
             cur_game.update_ui()
->>>>>>> Stashed changes
 
     pygame.quit() # close window
 
