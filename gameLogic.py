@@ -1,6 +1,7 @@
 import pygame
 from rules import Rules
 from ui_consts import EACH_SQUARE, W,H,RED,WHITE,BLACK
+from AIPlayer import AIPlayer
 
 class GameLogic:
    
@@ -13,6 +14,7 @@ class GameLogic:
         self.currentPlayer=self.player_1
         self.selected = None
         self.valid_moves = {}
+        self.AIPlayer = AIPlayer()
         # self.ai_game=AIGame
         #self.gameScore = self.score() 
 
@@ -57,7 +59,7 @@ class GameLogic:
             # highlight piece
 
             self.valid_moves = self.rules.possibleMoves(self.board,piece)
-            print("VALID MOVES: ", self.valid_moves)
+            # print("VALID MOVES: ", self.valid_moves)
             return True
             
         return False
@@ -87,13 +89,17 @@ class GameLogic:
             print("red 'pieces turn")
 
 
-    def ai_make_move(self, row, col):
-        piece = self.board.get_piece(row, col)
-        self.board.move_piece(self.selected, row, col)
+    def ai_make_move(self,piece, row, col):
+        self.valid_moves = self.rules.possibleMoves(self.board,piece)
+        self.board.move_piece(piece, row, col)
         skipped = self.valid_moves[(row, col)]
         if skipped:
             self.board.remove(skipped)
         self.switchTurn()
+
+    def ai_play_random(self):
+        piece, row, col = self.AIPlayer.randomMove(self.board)
+        self.ai_make_move(piece, row, col)
 
         
 
