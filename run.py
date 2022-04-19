@@ -51,14 +51,14 @@ def main():
     cur_game = GameLogic(board,WIN)
 
     if game_option == 0:
-        print("P VS AI NOT IMPLEMENTED YET, quitting")
-        sys.exit(0)
+        # print("P VS AI NOT IMPLEMENTED YET, quitting")
+        # sys.exit(0)
         while running:
             clock.tick(60) # constant framerate 
 
             if cur_game.currentPlayer == WHITE:
                 ## call minmax here on board and get the best move for ai
-                game.ai_make_move()
+                cur_game.ai_play_random()
             if cur_game.check_for_winner() != None:
                 color = cur_game.check_for_winner()
                 color = "RED" if color == RED else "WHITE"
