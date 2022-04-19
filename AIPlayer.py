@@ -22,7 +22,7 @@ class AIPlayer:
         
         
     def minimax(self,currentBoard, moveDepth):  
-        board=currentBoard
+        b=currentBoard
         maxEval = float('-inf')
         piece=None
         row=None
@@ -32,16 +32,18 @@ class AIPlayer:
         if moveDepth==0: 
             return maxEval,piece, row, column
         boards={}
-        for piece in board.getAllPieces(WHITE):
-            boards[piece]=self.AITurn(board,piece)
+        for piece in b.getAllPieces(WHITE):
+            boards[piece]=self.AITurn(b,piece)
         
-        for board in boards: 
-            nextMove=self.minimax(board, moveDepth-1)
-            score=self.getScore(board)
-            maxEval=max(nextMove[0],maxEval)
-            if maxEval==nextMove: 
-                bestMove=nextMove
-            return score, piece, row, column
+        for x in boards.keys(): 
+            for board in boards[x]: 
+                nextMove=self.minimax(board, moveDepth-1)
+                score=self.getScore(board)
+                maxEval=max(nextMove[0],maxEval)
+                if maxEval==score: 
+                    piece=x
+                    row=x.get
+                return maxEval, piece, row, column
                 
                
     def getScore(self, board):
