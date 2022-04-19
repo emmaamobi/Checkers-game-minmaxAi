@@ -118,7 +118,7 @@ class GameLogic:
         self.ai_make_move(piece, row, col)
 
     def ai_play_minimax(self):
-        piece, row, col=self.AIPlayer.minimax(self.board, self, 2)
+        piece, row, col=self.AIPlayer.minimax(self.board, 2)
         self.ai_make_move(piece, row, col)
         
     def check_for_winner(self):
