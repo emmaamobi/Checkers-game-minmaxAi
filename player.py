@@ -7,3 +7,4 @@ class Player:
 
 
         #Number of pieces
+#We need to delete this class.

@@ -12,25 +12,24 @@ class Piece:
         self.x_cord = 0
         self.y_cord = 0
         self.set_cord()
-
-
-        
-#TODO: Implement setter for possible moves
         
 
     def setKing(self): 
         self.isKing=True
+
     def setColor(self,c):
         self.color=c
-    def setPosition(self,x,y):
-        self.xPostion=x
-        self.col=y
+
+
     def getKing(self):
         return self.isKing
+
     def getColor(self):
         return self.color
+
     def getPosition(self):
-        return [self.row, self.YPosition]
+        return [self.row, self.col]
+
     def getPossibleMoves(self):
         return self.possibleMoves
 
@@ -40,6 +39,18 @@ class Piece:
         self.x_cord = (EACH_SQUARE * self.col) + EACH_SQUARE // 2
         self.y_cord = (EACH_SQUARE * self.row) + EACH_SQUARE // 2
 
+    def highlight(self,win):
+        x_y_cords = (self.x_cord, self.y_cord)
+        pad = 10
+        radius = (EACH_SQUARE // 2) - pad
+        outline = 10
+        pygame.draw.circle(win, BLUE, x_y_cords, radius + outline )
+        pygame.draw.circle(win, self.color, x_y_cords, radius)
+
+        ## draw king
+        if self.isKing:
+            radius_smaller = ((EACH_SQUARE // 2) // 2)
+            pygame.draw.circle(win, GOLD, x_y_cords, radius_smaller)
     def draw_piece(self,win):
         x_y_cords = (self.x_cord, self.y_cord)
         pad = 10
@@ -60,6 +71,7 @@ class Piece:
 
     def __repr__(self):
         res = ""
-        res += "{} piece located at {},{}\n".format(self.color,self.row,self.col)
+        color_str = "RED" if self.color == RED else "WHITE"
+        res += "{} piece located at {},{}\n".format(color_str,self.row,self.col)
         return res
 
