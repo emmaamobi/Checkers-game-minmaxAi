@@ -1,6 +1,7 @@
 from board import Board
 from piece import Piece
 from rules import Rules
+from board import Board
 from ui_consts import EACH_SQUARE, W,H,RED,WHITE,BLACK,BLUE,GOLD
 
 class AIPlayer:
@@ -8,16 +9,15 @@ class AIPlayer:
         self.pieceColor = WHITE
         self.rules = Rules()
         
-    def bestPiece():
-        return 0
-        
-    def AITurn(self,board, piece):
-        moves=self.rules.possibleMoves(board,piece)
+    def AITurn(self,b, piece): 
+        moves=self.rules.possibleMoves(b,piece)
         boards=[]
-        for move in moves: 
+        for move in moves:
+            newb=Board()
+            newb.initializePossibleBoard(b)
             row,col=move
-            board.move_piece(piece,row,col)
-            boards.append(board)
+            newb.move_piece(piece,row,col)
+            boards.append(newb)
         return boards
         
         
@@ -27,9 +27,7 @@ class AIPlayer:
         piece=None
         row=None
         column=None
-        bestMove=None
-        
-        if moveDepth==0: 
+        if moveDepth==0 and piece!=None: 
             return maxEval,piece, row, column
         boards={}
         for piece in b.getAllPieces(WHITE):
@@ -39,17 +37,18 @@ class AIPlayer:
             for board in boards[x]: 
                 nextMove=self.minimax(board, moveDepth-1)
                 score=self.getScore(board)
-                maxEval=max(nextMove[0],maxEval)
+                maxEval=max(score,maxEval)
                 if maxEval==score: 
                     row=x.getPosition()[0]
-                    col=x.getPosition()[1]
+                    column=x.getPosition()[1]
                     piece=x
-                return maxEval, piece, row, column
+        return maxEval, piece, row, column
         
                 
                
-    def getScore(self, board):
+    def getScore(self, board): #get minimax evaluation score based on board pieces
         score=board.white_pieces-board.red_pieces+ (board.white_kings * 0.5 - board.red_kings * 0.5)
+        return score
                 
     def randomMove(self, board):
         allMoves = self.rules.getAllMoves(board, WHITE)

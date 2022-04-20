@@ -38,6 +38,11 @@ class Board:
                         self.board[row].append(0)
                 else:
                     self.board[row].append(0)
+  
+    def initializePossibleBoard(self, b): 
+        for row in range(b.rows):
+            for col in range(b.cols):
+                self.board[row][col]=b.board[row][col]
 
 
     def get_board(self):
