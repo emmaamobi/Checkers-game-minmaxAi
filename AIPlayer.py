@@ -53,7 +53,7 @@ class AIPlayer:
             
             for x in boards: 
                 if x!=None:
-                    nextMove=self.minimax(x[0],x[1], moveDepth-1,WHITE)[0]
+                    nextMove=self.minimax(x[1],x[0], moveDepth-1,WHITE)[0]
                     maxEval=max(nextMove,maxEval)
                     if maxEval==score: 
                         row=x[1].getPosition()[0]
