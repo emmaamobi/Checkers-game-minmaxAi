@@ -22,27 +22,27 @@ class AIPlayer:
         
         
     def minimax(self,piece,currentBoard, moveDepth, currentPlayer):
-        maxEval = float('-inf')
-        minEval=float('inf')
-        row=None
-        column=None
+        maxEval = float('-inf') #White piece maximization
+        minEval=float('inf') #same, but for red pieces
+        row=None #holds the row of the ideal piece
+        column=None #holds the column of the ideal piece
         score=self.getScore(currentBoard) #gets the score of the current board
         if moveDepth==0: #base case
-            row=piece.getPosition()[0] #get position of given piece
-            column=piece.getPosition()[1]
+            row=piece.getPosition()[0] #get row of given piece
+            column=piece.getPosition()[1] #get column of given piece
             return score ,piece, row, column
-        boards=[]
-        if(currentPlayer==WHITE):
-            for pieceObj in currentBoard.getAllPieces(WHITE):
-                boardList=self.AITurn(currentBoard,pieceObj)
+        boards=[] #holds all of possible boards
+        if(currentPlayer==WHITE): #if on the ai
+            for pieceObj in currentBoard.getAllPieces(WHITE): #get all pieces for white player
+                boardList=self.AITurn(currentBoard,pieceObj) #get a list of all possible boards for that piece move
                 for x in boardList: 
-                    boards.append([x,pieceObj])
+                    boards.append([x,pieceObj]) #add the board and the piece thats moved 
             
-            for x in boards: 
-                if x!=None:
-                    nextMove=self.minimax(x[1],x[0], moveDepth-1,RED)[0]
+            for x in boards:  #iterate thru all possible boards
+                if x!=None: 
+                    nextMove=self.minimax(x[1],x[0], moveDepth-1,RED)[0] #calling minmax again
                     maxEval=max(nextMove,maxEval)
-                    if maxEval==score: 
+                    if maxEval==nextMove: 
                         row=x[1].getPosition()[0]
                         column=x[1].getPosition()[1]
                         piece=x[1]
@@ -55,7 +55,7 @@ class AIPlayer:
                 if x!=None:
                     nextMove=self.minimax(x[1],x[0], moveDepth-1,WHITE)[0]
                     maxEval=max(nextMove,maxEval)
-                    if maxEval==score: 
+                    if maxEval==nextMove: 
                         row=x[1].getPosition()[0]
                         column=x[1].getPosition()[1]
                         piece=x[1]
@@ -68,7 +68,7 @@ class AIPlayer:
                 
     def randomMove(self, board):
         allMoves = self.rules.getAllMoves(board, WHITE)
-        # print("ALL MOVESS, for all pieces: ", allMoves)
+        # print("ALL MOVES, for all pieces: ", allMoves)
 
         for piece in allMoves:
             if allMoves[piece]:

@@ -103,9 +103,10 @@ class GameLogic:
     def ai_make_move(self,piece, row, col):
         self.valid_moves = self.rules.possibleMoves(self.board,piece)
         self.board.move_piece(piece, row, col)
-        # skipped = self.valid_moves[(row, col)]
-        # if skipped:
-        #     self.board.remove(skipped)
+        if (row, col) in self.valid_moves: #This might be part of skip problem!!!
+            skipped = self.valid_moves[(row, col)]
+            if skipped:
+                self.board.remove(skipped)
         self.switchTurn()
 
     def ai_play_random(self):
