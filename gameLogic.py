@@ -2,6 +2,7 @@ import pygame
 from rules import Rules
 from ui_consts import EACH_SQUARE, W,H,RED,WHITE,BLACK
 from AIPlayer import AIPlayer
+from copy import deepcopy
 
 class GameLogic:
    
@@ -88,7 +89,6 @@ class GameLogic:
             self.currentPlayer= self.player_1 
             print("red 'pieces turn")
 
-
     def ai_make_move(self,piece, row, col):
         self.valid_moves = self.rules.possibleMoves(self.board,piece)
         self.board.move_piece(piece, row, col)
@@ -101,16 +101,26 @@ class GameLogic:
         piece, row, col = self.AIPlayer.randomMove(self.board)
         self.ai_make_move(piece, row, col)
 
-    def ai_play_minimax(self):
-        piece, row, col=self.AIPlayer.minimax(self.board, self, 2)
+    def ai_make_move(self,piece, row, col):
+        self.valid_moves = self.rules.possibleMoves(self.board,piece)
+        self.board.move_piece(piece, row, col)
+        if (row, col) in self.valid_moves: #This might be part of skip problem!!!
+            skipped = self.valid_moves[(row, col)]
+            if skipped:
+                self.board.remove(skipped)
+        self.switchTurn()
+
+    def ai_play_random(self):
+        piece, row, col = self.AIPlayer.randomMove(self.board)
         self.ai_make_move(piece, row, col)
+
+    def ai_play_minimax(self):
+        score,oldrow,oldcol,newrow,newcol=self.AIPlayer.minimax(self.board,None,None,None,None, 1,WHITE)
+        piece=self.board.board[oldrow][oldcol]
+        self.ai_make_move(piece, newrow, newcol)
         
     def check_for_winner(self):
         return self.rules.winner(self.board)
-
-
-    # def score(self):
-    #     self.score = self.player_1.getPieces()-self.player_2.getPieces()+(self.player_1.getNumberKings()*1.5 -self.player_2.getNumberKings()*1.5)
 
 
 
