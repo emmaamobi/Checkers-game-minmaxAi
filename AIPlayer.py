@@ -17,9 +17,6 @@ class AIPlayer:
         for move,skipped in moves.items(): #go through all possible moves to be made
             newb=deepcopy(b)
             pieceCopy=newb.board[row][col]
-            print("PIECE HERE",pieceCopy)
-            print("ROW",row)
-            print("COL",col)
             newrow,newcol=move #unpack the current move
             oldrow,oldcol=pieceCopy.getPosition()
             newb.move_piece(pieceCopy,newrow,newcol) #move wanted piece to possible position on board copy

@@ -20,26 +20,6 @@ class GameLogic:
         #self.gameScore = self.score() 
 
 
-    # def playing_game(self):
-
-    #     while self.check_for_winner()==True :
-    #         print(self.currentPlayer, "pieces turn") 
-         
-    #         # calls board to get board state, playing piece and chosen by USER move
-    #         # 
-    #         if self.rules.validateMove(self.board.getInput(boardState,playing_piece, chosen_move)):
-    #             self.game.makeMove(playing_piece, chosen_move)
-    #             self.game.switchTurn()
-    #             print("Move is made") # for debugging purposes
-
-    #             return True
-    #         else:
-    #             print ("Invalid move, try again")
-        
-    #     self.playing_game()
-                
-
-
     def update_ui(self):
         self.board.draw_game(self.window)
         if self.selected:
