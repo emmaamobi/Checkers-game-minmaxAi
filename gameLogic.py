@@ -64,10 +64,10 @@ class GameLogic:
         self.selected = None
         if self.currentPlayer == self.player_1:
             self.currentPlayer = self.player_2
-            print("white 'pieces turn")
+            # print("white 'pieces turn")
         else:
             self.currentPlayer= self.player_1 
-            print("red 'pieces turn")
+            # print("red 'pieces turn")
 
     def ai_make_move(self,piece, row, col):
         self.valid_moves = self.rules.possibleMoves(self.board,piece)
