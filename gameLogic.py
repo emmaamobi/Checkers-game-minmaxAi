@@ -2,6 +2,7 @@ import pygame
 from rules import Rules
 from ui_consts import EACH_SQUARE, W,H,RED,WHITE,BLACK
 from AIPlayer import AIPlayer
+from copy import deepcopy
 
 class GameLogic:
    
@@ -114,11 +115,12 @@ class GameLogic:
         self.ai_make_move(piece, row, col)
 
     def ai_play_minimax(self):
-        score, piece, row, col=self.AIPlayer.minimax(0,self.board, 1,WHITE)
+        score, piece, row, col,b=self.AIPlayer.minimax(0,self.board, 1,WHITE)
         print(score)
         print(row)
         print(col)
         print(piece)
+        #self.board=deepcopy(b)
         self.ai_make_move(piece, row, col)
         
     def check_for_winner(self):
