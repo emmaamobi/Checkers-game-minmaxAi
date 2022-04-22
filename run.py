@@ -7,6 +7,17 @@ from ui_consts import EACH_SQUARE, W,H,RED,WHITE,BLACK,BLUE,GOLD
 import PySimpleGUI as sg
 import sys
 
+def display_winner(winner):
+    layout = [[sg.Text("WINNER IS {}!!".format(winner))]]
+    window = sg.Window("WINNER MESSAGE", layout, modal=True)
+    choice = None
+    while True:
+        event, values = window.read()
+        if event == "Exit" or event == sg.WIN_CLOSED:
+            break
+    window.close()
+
+
 def getUserOption():
     options = ['PvP','PvAI']
 
@@ -49,6 +60,7 @@ def main():
     clock = pygame.time.Clock()
     board = Board()
     cur_game = GameLogic(board,WIN)
+    winner = "TIE"
 
     if game_option == 0:
         # print("P VS AI NOT IMPLEMENTED YET, quitting")
@@ -57,9 +69,9 @@ def main():
             clock.tick(60) # constant framerate 
 
             if cur_game.check_for_winner() != None:
-                color = cur_game.check_for_winner()
-                color = "RED" if color == RED else "WHITE"
-                print("WINNER IS: ", color)
+                winner = cur_game.check_for_winner()
+                winner = "RED" if winner == RED else "WHITE"
+                print("WINNER IS: ", winner)
                 running = False 
                 break
 
@@ -83,9 +95,9 @@ def main():
         while running:
             clock.tick(60) # constant framerate 
             if cur_game.check_for_winner() != None:
-                color = cur_game.check_for_winner()
-                color = "RED" if color == RED else "WHITE"
-                print("WINNER IS: ", color)
+                winner = cur_game.check_for_winner()
+                winner = "RED" if winner == RED else "WHITE"
+                print("WINNER IS: ", winner)
                 running = False 
             
             for event in pygame.event.get():
@@ -101,6 +113,7 @@ def main():
             cur_game.update_ui()
 
     pygame.quit() # close window
+    display_winner(winner)
 
 
 if __name__ == "__main__":
