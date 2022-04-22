@@ -10,50 +10,50 @@ class AIPlayer:
         self.pieceColor = WHITE
         self.rules = Rules()
         
-    def AITurn(self,b, piece): #used to simulate future turns for game lookahead
-        pieceCopy=deepcopy(piece)
-        moves=self.rules.possibleMoves(b,pieceCopy) #get possible moves for current board
+    def AITurn(self,b,row,col): #used to simulate future turns for game lookahead
+        piece=b.board[row][col]
+        moves=self.rules.possibleMoves(b,piece) #get possible moves for current board
         boards=[] #initialize list that will hold boards
-        for move in moves: #go through all possible moves to be made
+        for move,skipped in moves.items(): #go through all possible moves to be made
             newb=deepcopy(b)
-            row,col=move #unpack the current move
-            print("Current position: ")
-            print(pieceCopy.getPosition())
-            print("Proposed Position")
-            print(move)
-            newb.move_piece(piece,row,col) #move wanted piece to possible position on board copy
-            boards.append(newb) #add new board to the board list
+            pieceCopy=newb.board[row][col]
+            print("PIECE HERE",pieceCopy)
+            print("ROW",row)
+            print("COL",col)
+            newrow,newcol=move #unpack the current move
+            oldrow,oldcol=pieceCopy.getPosition()
+            newb.move_piece(pieceCopy,newrow,newcol) #move wanted piece to possible position on board copy
+            if skipped:
+                newb.remove(skipped)
+            boards.append([newb,oldrow,oldcol,newrow,newcol]) #add new board to the board list
         return boards
         
         
-    def minimax(self,piece,currentBoard, moveDepth, currentPlayer):
+    def minimax(self,currentBoard, oldrow,oldcol,newrow,newcol,moveDepth, currentPlayer):
         maxEval = float('-inf') #White piece maximization
         minEval=float('inf') #same, but for red pieces
-        row=None #holds the row of the ideal piece
-        column=None #holds the column of the ideal piece
         score=self.getScore(currentBoard) #gets the score of the current board
-        idealBoard=None
         if moveDepth==0: #base case
-            row=piece.getPosition()[0] #get row of given piece
-            column=piece.getPosition()[1] #get column of given piece
-            return score ,piece, row, column
+            return score ,oldrow,oldcol,newrow, newcol
         boards=[] #holds all of possible boards
         if(currentPlayer==WHITE): #if on the ai
             for pieceObj in currentBoard.getAllPieces(WHITE): #get all pieces for white player
-                boardList=self.AITurn(currentBoard,pieceObj) #get a list of all possible boards for that piece move
+                row,col=pieceObj.getPosition()
+                boardList=self.AITurn(currentBoard,row,col) #get a list of all possible boards for that piece move
                 for x in boardList: 
-                    boards.append([x,pieceObj]) #add the board and the piece thats moved 
+                    boards.append(x) #add the board and the piece thats moved 
             
             for x in boards:  #iterate thru all possible boards
                 if x!=None: 
-                    nextMove=self.minimax(x[1],x[0], moveDepth-1,RED)[0] #calling minmax again
-                    maxEval=max(nextMove,maxEval)
-                    if maxEval==nextMove: 
-                        row=x[1].getPosition()[0]
-                        column=x[1].getPosition()[1]
-                        piece=x[1]
-                        idealBoard=x[0]
-            return maxEval, piece, row, column, idealBoard
+                    nextMove=self.minimax(x[0], x[1],x[2],x[3],x[4],moveDepth-1,RED) #calling minmax again
+                    nextMoveScore=nextMove[0]
+                    maxEval=max(nextMoveScore,maxEval)
+                    if maxEval==nextMoveScore: 
+                        oldrow=nextMove[1]
+                        oldcol=nextMove[2]
+                        newrow=nextMove[3]
+                        newcol=nextMove[4]
+            return maxEval, oldrow,oldcol,newrow,newcol
         else: 
             for pieceObj in currentBoard.getAllPieces(RED):
                 boardList=self.AITurn(currentBoard,pieceObj) #get a list of all possible boards for that piece move
@@ -62,14 +62,15 @@ class AIPlayer:
             
             for x in boards: 
                 if x!=None:
-                    nextMove=self.minimax(x[1],x[0], moveDepth-1,WHITE)[0]
-                    minEval=max(nextMove,minEval)
-                    if minEval==nextMove: 
-                        row=x[1].getPosition()[0]
-                        column=x[1].getPosition()[1]
-                        piece=x[1]
-                        idealBoard=x[0]
-            return minEval, piece, row, column, idealBoard
+                    nextMove=self.minimax(x[0], x[1],x[2],x[3],x[4],moveDepth-1,WHITE) #calling minmax again
+                    nextMoveScore=nextMove[0]
+                    minEval=min(nextMoveScore,maxEval)
+                    if maxEval==nextMoveScore: 
+                        oldrow=nextMove[1]
+                        oldcol=nextMove[2]
+                        newrow=nextMove[3]
+                        newcol=nextMove[4]
+            return minEval, oldrow,oldcol,newrow,newcol
                 
                
     def getScore(self, board): #get minimax evaluation score based on board pieces
