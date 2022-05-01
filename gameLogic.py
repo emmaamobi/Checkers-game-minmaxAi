@@ -95,7 +95,7 @@ class GameLogic:
         self.ai_make_move(piece, row, col)
 
     def ai_play_minimax(self):
-        score,oldrow,oldcol,newrow,newcol=self.AIPlayer.minimax(self.board,None,None,None,None, 1,WHITE)
+        score,oldrow,oldcol,newrow,newcol=self.AIPlayer.minimax(self.board,None,None,None,None, 3,WHITE)
         piece=self.board.board[oldrow][oldcol]
         self.ai_make_move(piece, newrow, newcol)
         

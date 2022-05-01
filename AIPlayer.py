@@ -53,15 +53,16 @@ class AIPlayer:
             return maxEval, oldrow,oldcol,newrow,newcol
         else: 
             for pieceObj in currentBoard.getAllPieces(RED):
-                boardList=self.AITurn(currentBoard,pieceObj) #get a list of all possible boards for that piece move
+                row,col=pieceObj.getPosition()
+                boardList=self.AITurn(currentBoard,row, col) #get a list of all possible boards for that piece move
                 for x in boardList: 
-                    boards.append([x,pieceObj]) #add the board and the piece thats moved 
+                    boards.append(x) #add the board and the piece thats moved 
             
             for x in boards: 
                 if x!=None:
                     nextMove=self.minimax(x[0], x[1],x[2],x[3],x[4],moveDepth-1,WHITE) #calling minmax again
                     nextMoveScore=nextMove[0]
-                    minEval=min(nextMoveScore,maxEval)
+                    minEval=min(nextMoveScore,minEval)
                     if maxEval==nextMoveScore: 
                         oldrow=nextMove[1]
                         oldcol=nextMove[2]
